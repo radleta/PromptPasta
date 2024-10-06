@@ -1,28 +1,49 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from "vscode";
+import { copyForPrompt } from "./commands/copyForPrompt";
+import { copyTabForPrompt } from "./commands/copyTabForPrompt";
+import { copyTabGroupForPrompt } from "./commands/copyTabGroupForPrompt";
+import { copyAllTabsForPrompt } from "./commands/copyAllTabsForPrompt";
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-  // Use the console to output diagnostic information (console.log) and errors (console.error)
-  // This line of code will only be executed once when your extension is activated
-  console.log('Congratulations, your extension "promptpasta" is now active!');
-
-  // The command has been defined in the package.json file
-  // Now provide the implementation of the command with registerCommand
-  // The commandId parameter must match the command field in package.json
-  const disposable = vscode.commands.registerCommand(
-    "promptpasta.helloWorld",
-    () => {
-      // The code you place here will be executed every time your command is executed
-      // Display a message box to the user
-      vscode.window.showInformationMessage("Hello World from PromptPasta!");
+  let copyForPromptCommand = vscode.commands.registerCommand(
+    "promptpasta.copyForPrompt",
+    async (uri, uris) => {
+      // Handle case where multiple items are selected
+      if (uris && uris.length > 1) {
+        await copyForPrompt(uris);
+      } else {
+        await copyForPrompt([uri]);
+      }
     }
   );
+  context.subscriptions.push(copyForPromptCommand);
 
-  context.subscriptions.push(disposable);
+  // Register copy tab command (context-aware)
+  let copyTabForPromptCommand = vscode.commands.registerCommand(
+    "promptpasta.copyTabForPrompt",
+    async (uri) => {
+      await copyTabForPrompt(uri);
+    }
+  );
+  context.subscriptions.push(copyTabForPromptCommand);
+
+  // Register copy tab group command (context-aware)
+  let copyTabGroupForPromptCommand = vscode.commands.registerCommand(
+    "promptpasta.copyTabGroupForPrompt",
+    async (uri) => {
+      await copyTabGroupForPrompt(uri);
+    }
+  );
+  context.subscriptions.push(copyTabGroupForPromptCommand);
+
+  // Register the new command to copy all tabs across groups
+  let copyAllTabsForPromptCommand = vscode.commands.registerCommand(
+    "promptpasta.copyAllTabsForPrompt",
+    async () => {
+      await copyAllTabsForPrompt();
+    }
+  );
+  context.subscriptions.push(copyAllTabsForPromptCommand);
 }
 
-// This method is called when your extension is deactivated
 export function deactivate() {}

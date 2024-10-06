@@ -19,14 +19,6 @@
     "onCommand:promptpasta.helloWorld"
   ],
   "main": "./dist/extension.js",
-  "contributes": {
-    "commands": [
-      {
-        "command": "promptpasta.helloWorld",
-        "title": "Hello World"
-      }
-    ]
-  },
   "keywords": [
     "AI",
     "prompts",
@@ -47,14 +39,14 @@
     "check-types": "tsc --noEmit",
     "lint": "eslint src",
     "test": "vscode-test",
-    "format": "prettier --write 'src/**/*.ts'"
+    "format": "prettier --write src/**/*.ts"
   },
   "devDependencies": {
     "@types/mocha": "^10.0.8",
     "@types/node": "20.x",
     "@types/vscode": "^1.94.0",
-    "@typescript-eslint/eslint-plugin": "^8.7.0",
-    "@typescript-eslint/parser": "^8.7.0",
+    "@typescript-eslint/eslint-plugin": "^8.8.0",
+    "@typescript-eslint/parser": "^8.8.0",
     "@vscode/test-cli": "^0.0.10",
     "@vscode/test-electron": "^2.4.1",
     "esbuild": "^0.24.0",
@@ -70,5 +62,104 @@
     "README.md",
     "CHANGELOG.md",
     "LICENSE"
-  ]
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "promptpasta.copyForPrompt",
+        "title": "Copy for Prompt"
+      },
+      {
+        "command": "promptpasta.copyTabForPrompt",
+        "title": "Copy Tab for Prompt"
+      },
+      {
+        "command": "promptpasta.copyTabGroupForPrompt",
+        "title": "Copy Tab Group for Prompt"
+      },
+      {
+        "command": "promptpasta.copyAllTabsForPrompt",
+        "title": "Copy All Tabs for Prompt"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "promptpasta.copyForPrompt",
+          "when": "resource"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "promptpasta.copyTabForPrompt",
+          "when": "resource"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "promptpasta.copyTabForPrompt",
+          "when": "resource"
+        },
+        {
+          "command": "promptpasta.copyTabGroupForPrompt",
+          "when": "resource"
+        },
+        {
+          "command": "promptpasta.copyAllTabsForPrompt",
+          "when": "resource"
+        }
+      ],
+      "editor/context": [
+        {
+          "command": "promptpasta.copyForPrompt",
+          "when": "resource"
+        }
+      ]
+    },
+    "configuration": {
+      "type": "object",
+      "title": "PromptPasta Configuration",
+      "properties": {
+        "promptpasta.binaryFileHandling": {
+          "type": "string",
+          "enum": [
+            "summarize",
+            "ignore"
+          ],
+          "default": "summarize",
+          "description": "Choose whether to summarize or ignore binary files during copy operations."
+        },
+        "promptpasta.ignore": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "**/node_modules/**",
+            "**/*.bin"
+          ],
+          "description": "Glob patterns for files or folders to ignore when copying."
+        },
+        "promptpasta.summaryOnly": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "**/*.jpg",
+            "**/*.png",
+            "**/*.zip"
+          ],
+          "description": "Glob patterns for files to include only a summary (name, path, size) instead of content when copying."
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@types/micromatch": "^4.0.9",
+    "chardet": "^2.0.0",
+    "iconv-lite": "^0.6.3",
+    "isbinaryfile": "^5.0.2",
+    "micromatch": "^4.0.8"
+  }
 }
