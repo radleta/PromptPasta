@@ -24,12 +24,22 @@
     "onCommand:promptpasta.helloWorld"
   ],
   "main": "./dist/extension.js",
+  "icon": "icon.png",
   "keywords": [
-    "AI",
-    "prompts",
-    "markdown",
-    "context",
-    "productivity"
+    "VS Code",
+    "extension",
+    "copy-paste",
+    "prompt",
+    "AI tools",
+    "productivity",
+    "configuration",
+    "binary files",
+    "ignore patterns",
+    "summary",
+    "prompt building",
+    "context awareness",
+    "collaboration",
+    "performance"
   ],
   "scripts": {
     "vscode:prepublish": "npm run package",
