@@ -17,8 +17,9 @@
     "url": "https://www.richardadleta.com/"
   },
   "categories": [
+    "Data Science",
     "Machine Learning",
-    "Productivity"
+    "Other"
   ],
   "activationEvents": [
     "onCommand:promptpasta.helloWorld"
