@@ -1,0 +1,47 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Node.js dependencies
+node_modules/
+package-lock.json
+yarn.lock
+
+# TypeScript output
+out/
+dist/
+
+# Compiled JavaScript files
+*.js
+*.js.map
+
+# TypeScript cache
+*.tsbuildinfo
+
+# VS Code files
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+!.vscode/*.code-snippets
+
+# Local History for Visual Studio Code
+.history/
+
+# Built Visual Studio Code Extensions
+*.vsix
+dist
+
+# macOS system files
+.DS_Store
+
+# Windows system files
+Thumbs.db
+
+# Compiled files and other unnecessary artifacts
+*.vsix
+
+# Coverage directory (if using coverage tools like nyc or jest)
+coverage/
